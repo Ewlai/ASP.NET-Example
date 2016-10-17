@@ -1,0 +1,132 @@
+﻿@model Notes.Controllers.EmployeeBaseWithAssociatedData
+
+@{
+    ViewBag.Title = "My employee info";
+}
+
+<h2>My employee info</h2>
+
+<div>
+    <h4>Employment-related information, and my list of notes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FamilyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FamilyName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GivenNames)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GivenNames)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdentityUserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdentityUserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HireDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HireDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OU)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManagerFullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManagerFullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DirectReports)
+        </dt>
+
+        <dd>
+            @foreach (var item in Model.DirectReports)
+            {
+                <p> @item.FullName</p>
+            }
+        </dd>
+        <br />
+        <p>
+            @Html.ActionLink("Choose employees who report to me", "ChooseDirectReports", new { id = Model.Id })
+        </p>
+        <br />
+    </dl>
+    <hr />
+    <h4>My Notes</h4>
+    <table class="table">
+        <tr>
+            <th>
+                TimeStamp
+            </th>
+            <th>
+                Note Title
+            </th>
+            <th>
+                Length in Characters
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Notes)
+        {
+            <tr>
+                <td>
+                    @item.Timestamp
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.NoteText.Length
+                </td>
+                <td>
+                    @Html.ActionLink("View Details", "../Notes/Details", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+    <hr />
+    @Html.ActionLink("Create new note", "../Notes/Create", new { id = Model.Id })
+</div>
+<p>
+
+</p>

@@ -1,0 +1,55 @@
+﻿@model Notes.Controllers.NoteAddForm
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>NoteAddForm</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.EmployeeId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <script src="http://cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
+        <div class="form-group">
+            @Html.LabelFor(model => model.NoteText, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @using (Html.BeginForm())
+                {
+                    <textarea name="NoteText"></textarea>
+                    <script>CKEDITOR.replace('NoteText', { startupFocus: true, autoParagraph: false });</script>
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to employee details", "../Employees/Details", new { id = Model.EmployeeId })
+</div>
